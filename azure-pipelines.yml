@@ -1,0 +1,24 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        corepack enable
+        corepack prepare pnpm@latest-9 --activate
+
+  - script: |
+      pnpm install
+      pnpm run build
+    displayName: "pnpm install and build"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'dist'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

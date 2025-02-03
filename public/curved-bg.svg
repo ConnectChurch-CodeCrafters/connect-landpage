@@ -1,0 +1,14 @@
+<svg width="1440" height="775" viewBox="0 0 1440 775" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path opacity="0.6" d="M0 0H1440V612.787C1440 612.787 1125.16 511.057 720 612.787C314.844 714.517 0 612.787 0 612.787V0Z" fill="#4DC16B"/>
+<path opacity="0.5" d="M-49.4667 -7.23821L1435.84 -109.901L1482.52 565.42C1482.43 565.397 1482.33 565.371 1482.22 565.344C1481.58 565.177 1480.62 564.933 1479.35 564.621C1476.8 563.997 1473.03 563.099 1468.07 562.008C1458.16 559.825 1443.55 556.866 1424.74 553.756C1387.12 547.536 1332.68 540.715 1265.41 538.309C1130.88 533.497 945.029 546.343 739.749 616.974C534.608 687.557 348.884 700.394 214.446 695.585C147.227 693.181 92.8315 686.366 55.2435 680.152C36.4496 677.045 21.8578 674.089 11.9662 671.909C7.02038 670.82 3.24965 669.924 0.716246 669.302C-0.550454 668.99 -1.50782 668.747 -2.14807 668.582C-2.4054 668.516 -2.61151 668.462 -2.76588 668.421L-49.4667 -7.23821Z" fill="#4DC16B" stroke="black"/>
+<g opacity="0.5" filter="url(#filter0_f_1318_63)">
+<ellipse cx="991.215" cy="692.715" rx="170.5" ry="36.2001" transform="rotate(7.53336 991.215 692.715)" fill="#D9D9D9"/>
+</g>
+<defs>
+<filter id="filter0_f_1318_63" x="782.119" y="610.43" width="418.193" height="164.571" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="20" result="effect1_foregroundBlur_1318_63"/>
+</filter>
+</defs>
+</svg>
