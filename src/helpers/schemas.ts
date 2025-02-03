@@ -68,3 +68,22 @@ export const planFormSchema = z.object({
     complemento: z.string().optional().nullable()
   })
 });
+
+export interface TPlanForms  {
+  nomeDenominacao:string;
+  cpfCnpj:string;
+  estimativaMembros:string;
+  responsavelDenominacao: {
+    nomeResponsavel:string;
+    email:string;
+    telefone:string;
+  },
+  enderecoDenominacao: {
+    logradouro:string;
+    complemento:string;
+    bairro:string;
+    cep:string;
+    cidade:{ value: string, label: string };
+    uf:{ value: string, label: string };
+  }
+}
