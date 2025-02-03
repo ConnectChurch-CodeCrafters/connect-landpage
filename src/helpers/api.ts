@@ -141,6 +141,7 @@ export async function submitPlanForm(formattedValues: FormattedValuesPlan) {
       },
     );
     console.log("Response:", response.data);
+    return response.data
   } catch (error) {
     console.error("Erro:", error);
     const axiosError = error as AxiosError;

@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
-import type { z } from "zod";
 import sendIcon from "../assets/icons/send-mail.svg";
 import { MaskedInput } from "./Form/MaskedInput";
 import { Button } from "./ui/button";
@@ -69,6 +68,7 @@ export function DialogForm({ planId }: { planId: string; planName: string }) {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+
   const form = useForm<TPlanForms>({
     resolver: zodResolver(planFormSchema),
     defaultValues: {
@@ -85,8 +85,8 @@ export function DialogForm({ planId }: { planId: string; planName: string }) {
         complemento: "",
         bairro: "",
         cep: "",
-        cidade: "",
-        uf: "",
+        cidade: {value: "", label: ""},
+        uf: {value: "", label: ""},
       }
     },
   });
@@ -187,14 +187,48 @@ export function DialogForm({ planId }: { planId: string; planName: string }) {
     };
 
     try {
-      await submitPlanForm(formattedValues);
-      reset();
-      closeModal();
-      toast({
-        title: "Seu cadastro foi enviado com sucesso!",
-      });
-      setLoad(false);
-      navigate("/obrigado", { replace: true });
+      const responseSubmitPlanForm = await submitPlanForm(formattedValues);
+      const hasDuplicateEmailError = responseSubmitPlanForm.errors.some((error: string[]) => 
+        error.includes("Login ") && error.includes("já está sendo utilizado.")
+      );
+      const hasDuplicateCpfCnpjError = responseSubmitPlanForm.errors.some((error: string[]) => 
+        error.includes("CPF/CNPJ já existe em nossa base de dados.")
+      );
+      const hasInvalidCpfCnpjError = responseSubmitPlanForm.errors.some((error: string[]) => 
+        error.includes('CPF/CNPJ informado é inválido.')
+      );
+      if (responseSubmitPlanForm.errors.length > 0) {
+        setLoad(false);
+        if (hasDuplicateEmailError){
+         setError('responsavelDenominacao', {
+            message: `Login ${formattedValues.responsavelDenominacao.email} já está sendo utilizado.`
+        })
+        setModalErrorMessage(`Login ${formattedValues.responsavelDenominacao.email} já está sendo utilizado.`);
+        }
+        if (hasDuplicateCpfCnpjError) {
+          setError('responsavelDenominacao', {
+            message: 'CPF/CNPJ já existe em nossa base de dados.'
+        })
+        setModalErrorMessage('CPF/CNPJ já existe em nossa base de dados.');
+        }
+        if (hasInvalidCpfCnpjError) {
+          setError('responsavelDenominacao', {
+            message: 'CPF/CNPJ informado é inválido.'
+        })
+        setModalErrorMessage('CPF/CNPJ informado é inválido.');
+        }
+        setModalErrorOpen(true);
+        setModalIsOpen(false);
+      } else {
+        reset();
+        closeModal();
+        toast({
+          title: "Seu cadastro foi enviado com sucesso!",
+        });
+        setLoad(false);
+        
+        navigate("/obrigado", { replace: true });
+      }
     } catch (error) {
       console.error("Erro:", error);
       const consoleError = error as Error;
